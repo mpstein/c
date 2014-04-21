@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 struct node {
@@ -63,16 +63,48 @@ void view_list_from_postition(struct node * head)
 	int counter;
 	int value;
 	printf("Please hit enter after the value. \n");
-	printf("Enter a position to start from, 0 - indexed: ");
+	printf("Enter a position to remove, 0-indexed and inclusive: ");
 	scanf("%d", &value);
 	if (value < 0) {
 			printf("Why'd you go and do that?\n");
 			exit(1);
 	}
 
-
+	//Move through the list
+	int count;
+	for (count = 0; count < value; count ++) { head=head->next; }
+	
+	//Actually print
+	while (head != NULL)
+	{
+		printf ("The node contains: %d\n", head->value);
+		head=head->next;
+	}	
 }
-struct node * remove_value(struct node * head, int pos){}
+
+
+struct node * remove_value(struct node * head)
+{
+	//Get Input Value
+	int counter;
+	int value;
+	printf("Please hit enter after the value. \n");
+	printf("Enter a position to remove, 0-indexed and inclusive: ");
+	scanf("%d", &value);
+	if (value < 0) {
+			printf("Why'd you go and do that?\n");
+			exit(1);
+	}
+	//Move through the list
+	int count;
+	for (count = 0; count < value -1; count ++) { head=head->next; }
+	printf("You just deleted this value: %i\n", head->next->value);
+	struct node * temp = head;
+	head->next=head->next->next;
+	free(temp->next);
+	free(temp);
+	return head;
+}
 
 int menu(){
 printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -84,6 +116,8 @@ printf("View List: \t\t\t\t\t3\n");
 printf("View List starting a specific position:\t\t4\n");
 printf("Remove value a specific position:\t\t5\n");
 printf("Quit this stupid demo program:   \t\t6\n");
+printf("To-Do: Write the list to disk:   \t\t7\n");
+printf("To-Do: Figure out something clever:   \t\t8\n");
 printf("--------------------------------------------------\n");
 printf("Your choice? >> \t");
 	
@@ -144,8 +178,13 @@ int choice;
 				printf("View the list from a Specified Position!\n\n");
 				view_list_from_postition(head);
 				break;	
+			
+			case 5:
+				printf("Remove at a specific position!\n\n");
+				remove_value(head);
+				break;
 
-			default : return 0;
+			default : exit(0);
 		}	
 
 		} while(choice != 6);
