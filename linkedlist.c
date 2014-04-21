@@ -4,6 +4,8 @@
 int main(int argc, char *argv[])
 {
 printf("Can I remember how to print things? Let's find out.\n");
+if (argc = 1){
+printf("This takes a list of values to add to the nodes separated by spaces\n\n");
 
 int pointer_counter = 0;
 
@@ -14,21 +16,36 @@ struct node {
 
 int count;
 
+struct node *pointer;
+struct node *head;
+
 if (argc > 1)
 {
-	for (count = 1; count < argc; count ++)
-	{
-		printf("argv[%d] = %s\n", count, argv[count]);
-	}
+	pointer = (struct node*) malloc(sizeof(struct node));
+	head = pointer;
+} else{
+return 0;
 }
 
-struct node *pointer = (struct node*) malloc(sizeof(struct node));
 
-pointer->value=5;
-pointer->next=NULL;
+for (count = 1; count < argc; count ++)
+		{
+			printf("argv[%d] = %s\n\n", count, argv[count]);
+			pointer->value=(char) *argv[count]-'0';
+			pointer->next=(struct node*) malloc(sizeof(struct node));
+			pointer=pointer->next;
+		}
 
+printf("This loops through the list\n");
+pointer=head;
 
-printf ("The location of the node is %d\n", pointer_counter);
-printf ("The node contains: %d\n", pointer->value);
+while (pointer->next != NULL)
+{
+	printf ("The location of the node is %d\n", pointer_counter);
+	printf ("The node contains: %d\n", pointer->value);
+	pointer_counter++;
+	pointer=pointer->next;
+}
+
 }
 
