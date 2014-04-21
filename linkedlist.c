@@ -3,9 +3,9 @@
 
 int main(int argc, char *argv[])
 {
-printf("Can I remember how to print things? Let's find out.\n");
-if (argc = 1){
+if (argc == 1){
 printf("This takes a list of values to add to the nodes separated by spaces\n\n");
+}
 
 int pointer_counter = 0;
 
@@ -31,7 +31,7 @@ return 0;
 for (count = 1; count < argc; count ++)
 		{
 			printf("argv[%d] = %s\n\n", count, argv[count]);
-			pointer->value=(char) *argv[count]-'0';
+			pointer->value=atoi(argv[count]);
 			pointer->next=(struct node*) malloc(sizeof(struct node));
 			pointer=pointer->next;
 		}
