@@ -64,6 +64,9 @@ int add_node(struct node *last, int value, int pos){
 
 	if (pos != 1){		
 	printf("calling malloc\n");
+
+
+	//This fails here. I think it's because I'm trying to access memory in the main fuction
 	last->next=(struct node*) malloc(sizeof(struct node));
 	printf("moving forward\n");
 	last=last->next;
