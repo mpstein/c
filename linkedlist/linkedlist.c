@@ -46,6 +46,7 @@ for (count = 1; count < argc; count ++)
 printf("This loops through the list\n");
 
 //Final Checks
+//This fails on length of 1.
 while (pointer->next != NULL)
 {
 	printf ("The location of the node is %d\n", pointer_counter);
