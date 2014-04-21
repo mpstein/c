@@ -8,40 +8,74 @@ struct node {
 
 
 struct node *append_node(struct node * last){
-//Loop for Values struct node *append_node(struct node * last, int value, int pos){
+
+	//Get Input Value
+	int value;
+	printf("Please hit enter after the value. \n");
+	printf("Enter a value: ");
+	//I'm worried about scanf, I'm not limiting or type of input. This could really fail specatularly!
+	scanf("%d", &value);
+
+	//Make sure I'm at the tail
 	if (last != NULL) {
 		while (last->next!=NULL)
 			{last=last->next;
 		};
 	};
-do{
-	printf("Keep entering numbers until you're done. Please hit enter after each value. \n");
-	printf("Enter a value: ");
-	int value = getchar() - '0';
-
-	if (pos != 1){		
+	
 	last->next=(struct node*) malloc(sizeof(struct node));
 	last=last->next;
 	last->value=value;
 	last->next=NULL;
-	return (last);} 
-
-	else if (pos == 1) {
-		//This is the Head, don't create more!
-		last->value=value;
-		last->next=NULL;
-		return (last);
-	}
-	printf("Something Failed\n");
-	return (last);
+	printf("I made a tail with value %d\n\n", value);
+	return (last); 
 }	
 
-struct node * new_head(struct node * head, int value){}
-void view_list_from_head(struct node * head){}
-void view_list_from_postition(struct node * head, int pos){}
+struct node * new_head(struct node * head){
+	//Get Input Value
+	int value;
+	printf("Please hit enter after the value. \n");
+	printf("Enter a value: ");
+	scanf("%d", &value);
+
+	//Build the new head
+	struct node *temp_head = (struct node*) malloc(sizeof(struct node));
+	temp_head->value=value;
+	temp_head->next=head;
+	printf("I made a head with a value of %d \n\n", value);
+	return temp_head;
+}
+
+
+void view_list_from_head(struct node * head)
+{
+	while (head != NULL)
+	{
+		printf ("The node contains: %d\n", head->value);
+		head=head->next;
+	}
+}
+
+
+void view_list_from_postition(struct node * head)
+{
+	//Get Input Value
+	int counter;
+	int value;
+	printf("Please hit enter after the value. \n");
+	printf("Enter a position to start from, 0 - indexed: ");
+	scanf("%d", &value);
+	if (value < 0) {
+			printf("Why'd you go and do that?\n");
+			exit(1);
+	}
+
+
+}
 struct node * remove_value(struct node * head, int pos){}
 
-char menu(){
+int menu(){
+printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 printf("This is the menu of choices\n");
 printf("--------------------------------------------------\n");
 printf("Append Value:\t\t\t\t\t1\n");
@@ -53,78 +87,67 @@ printf("Quit this stupid demo program:   \t\t6\n");
 printf("--------------------------------------------------\n");
 printf("Your choice? >> \t");
 	
-	char value = getchar();
+	int value; 
+	scanf("%d", &value);
 	switch(value)
 	{
-		case '1': 
-		case '2': 
-		case '3': 
-		case '4': 
-		case '5': 
+		case 1: 
+		case 2: 
+		case 3: 
+		case 4: 
+		case 5:
 			return value;
 		default : 
-			printf("You suck at menus, try again. \n\n\n");
-			return '6';
+			printf("You suck at menus, you're done. \n\n\n");
+			return 6;
 	}	
 
 }
 
 int main(int argc, char *argv[]){
 
-//Define Variables
-int pointer_counter = 0;
-int count;
-struct node *pointer;
-struct node *head;
-struct node *tail;
+//Define Structure
+struct node *pointer = (struct node*) malloc(sizeof(struct node));
+struct node *head = NULL;
+struct node *tail = NULL;
 
-char choice = menu();
+int choice;
 	do{
-		printf("%c\n\n\n", choice);
-
-	switch (choice)
-	{
-		case 1:
-			printf("Append a Value\n");
+		choice = menu();
+		switch (choice)	{
+			case 1 : 
+				printf("Append a Value\n\n");
+							//check if new list:
+				if (head == NULL)
+				{
+					//Sending the premade pointer is fucking with it
+					head = new_head(head);
+					pointer = head;
+					tail = head->next;
+				} else
+				{
+					pointer = append_node(pointer);
+				};
+				break;
 			
-			//check if new list:
-			if (head == NULL || pointer = NULL)
-			{
-				pointer = (struct node*) malloc(sizeof(struct node));
-				head = pointer;
-				tail = pointer;
-			}
+			case 2 : 
+				printf("Add a new Head!\n\n");
+				head = new_head(head);
+				break;
 			
-			//Please don't lose the head in this!
-			//Need to Refactor so it prompts for Values in Method
-			tail = append_node()	
-	}	
+			case 3 : 
+				printf("View the list!\n\n");
+				view_list_from_head(head);
+				break;
 
+			case 4 :
+				printf("View the list from a Specified Position!\n\n");
+				view_list_from_postition(head);
+				break;	
 
-	int choice = menu();
-	} while(choice != '6');
-return 0;
+			default : return 0;
+		}	
+
+		} while(choice != 6);
+	return 0;
 }
-
-	//Move through the argument list skipping the program name (argv[0])
-/*	for (count = 1; count < argc; count ++)
-			{
-				printf("argv[%d] = %s\n\n", count, argv[count]);
-				tail=append_node(tail, atoi(argv[count]), count);
-			}
-*/
-
-/* Add this back in to the end of main to automatically pritn evernthing
-	printf("This loops through the list\n");
-
-	//Final Checks
-	while (pointer != NULL)
-	{
-		printf ("The location of the node is %d\n", pointer_counter);
-		printf ("The node contains: %d\n", pointer->value);
-		pointer_counter++;
-		pointer=pointer->next;
-	}
-
-
-*/
