@@ -1,0 +1,12 @@
+
+*.out
+
+*.swp
+
+linkedlist/Makefile
+
+linkedlist/test
+
+test.c
+
+linkedlist/linkedlist
